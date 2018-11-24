@@ -13,7 +13,7 @@ This is a repository of projects and work performed while going through the Udac
 The following are descriptions for each product as outlined in the <a href="https://d20vrrgs8k4bvw.cloudfront.net/documents/en-US/Artificial+Intelligence+Nanodegree+Syllabus.pdf?utm_campaign=acq_100_auto_ndxxx_syllabus_na&utm_source=blueshift&utm_medium=email&utm_content=acq_100_auto_ndxxx_auto-syllabus_na&bsft_clkid=8b1cc4c6-63d7-4027-b10f-446314a8aba2&bsft_uid=a8480cea-e6c2-42c0-8361-dd763f7fb35a&bsft_mid=17683981-b666-49e3-8d28-4d66ca67396a&bsft_eid=063b0846-68f4-0fd6-1512-dae12f602902&bsft_txnid=245202c0-a707-4a52-99f3-04ab5a6d9370">nanodegree syllabus</a>
 
 
-<a href="https://github.com/alekzandr/ai-nanodegree/tree/master/Sudoku"<h3>Sudoku Solver</h3></a>
+<a href="https://github.com/alekzandr/ai-nanodegree/tree/master/Sudoku"><h3>Sudoku Solver</h3></a>
 Humans use reason to solve problems by decomposing the problem statement and incorporating domain
 knowledge to limit the possible solution space. In this project, I use a technique called constraint
 propagation together with backtracking search to make an agent that only considers reasonable solution
