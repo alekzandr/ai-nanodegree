@@ -1,13 +1,18 @@
 # ai-nanodegree
 
-This is a repository of projects and work performed while going through the Udacity Artificial Intelligence Nanodegree. Below are lists of the following projects to be built and completed during the course:
+This is a repository of projects and exercies performed while going through the Udacity Artificial Intelligence Nanodegree. Below are lists of the following projects to be built and completed during the course:
 
+<h2>Projects</h2>
 <ul>
 <li>Build a Sudoku Solver
 <li>Build a Forward Planning Agent
 <li>Build an Adversarial Game Playing Agent
 <li>Part of Speech Tagging
 </ul>
+
+<h2>Exercies</h2>
+<ul>
+	<li>Constraint Satisfaction Problems</li>
 
 
 The following are descriptions for each product as outlined in the <a href="https://d20vrrgs8k4bvw.cloudfront.net/documents/en-US/Artificial+Intelligence+Nanodegree+Syllabus.pdf?utm_campaign=acq_100_auto_ndxxx_syllabus_na&utm_source=blueshift&utm_medium=email&utm_content=acq_100_auto_ndxxx_auto-syllabus_na&bsft_clkid=8b1cc4c6-63d7-4027-b10f-446314a8aba2&bsft_uid=a8480cea-e6c2-42c0-8361-dd763f7fb35a&bsft_mid=17683981-b666-49e3-8d28-4d66ca67396a&bsft_eid=063b0846-68f4-0fd6-1512-dae12f602902&bsft_txnid=245202c0-a707-4a52-99f3-04ab5a6d9370">nanodegree syllabus</a>
