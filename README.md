@@ -13,6 +13,7 @@ This is a repository of projects and exercies performed while going through the 
 <h2>Exercies</h2>
 <ul>
 	<li>Constraint Satisfaction Problems</li>
+	<li>Local Search</li>
 </ul>
 
 <br>
