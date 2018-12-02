@@ -362,21 +362,46 @@ class CornersProblem(search.SearchProblem):
 def cornersHeuristic(state, problem):
     """
     A heuristic for the CornersProblem that you defined.
-
-      state:   The current search state
-               (a data structure you chose in your search problem)
-
-      problem: The CornersProblem instance for this layout.
-
-    This function should always return a number that is a lower bound on the
-    shortest path from the state to a goal of the problem; i.e.  it should be
-    admissible (as well as consistent).
+    
+        state:   The current search state 
+                (a data structure you chose in your search problem)
+        
+        problem: The CornersProblem instance for this layout.  
+        
+    This function should always return a number that is a lower bound
+    on the shortest path from the state to a goal of the problem; i.e.
+    it should be admissible (as well as consistent).
     """
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
-
-    "*** YOUR CODE HERE ***"
-    return 0 # Default to trivial solution
+    
+    if problem.isGoalState(state):
+        return 0
+    
+    currentPosition = state[0]
+    wasCornerVisited = state[1]
+    
+    notVisitedCorners = []
+    closestCornerDistance = 999999
+    
+    for i in range(4):
+        if not wasCornerVisited[i]:
+            notVisitedCorners.append(corners[i])
+            distance = util.manhattanDistance(currentPosition, corners[i])
+            if distance < closestCornerDistance:
+                closestCornerDistance = distance
+            
+    remainingCornerToCornerDistance = 0
+    
+    if len(notVisitedCorners) == 2:
+        remainingCornerToCornerDistance = util.manhattanDistance(notVisitedCorners[0], notVisitedCorners[1])
+    elif len(notVisitedCorners) == 3:
+        remainingCornerToCornerDistance = min(util.manhattanDistance(notVisitedCorners[0], notVisitedCorners[1]), util.manhattanDistance(notVisitedCorners[1], notVisitedCorners[2]))
+    elif len(notVisitedCorners) == 4:
+        remainingCornerToCornerDistance = max(min(util.manhattanDistance(notVisitedCorners[0], notVisitedCorners[1]), util.manhattanDistance(notVisitedCorners[1], notVisitedCorners[2])), util.manhattanDistance(notVisitedCorners[2], notVisitedCorners[3]))
+        
+    estimatedCost = closestCornerDistance + remainingCornerToCornerDistance
+    return estimatedCost
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
