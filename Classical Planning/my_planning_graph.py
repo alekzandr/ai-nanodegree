@@ -20,7 +20,12 @@ class ActionLayer(BaseActionLayer):
         layers.ActionNode
         """
         # TODO: implement this function
-        raise NotImplementedError
+        inconsistent_A_and_B = any([~effect in actionA.effects for effect in actionB.effects])
+        inconsistent_B_and_A = any([~effect in actionB.effects for effect in actionA.effects])
+        if inconsistent_A_and_B==True or inconsistent_B_and_A==True:
+            return True
+        else:
+            return False
 
 
     def _interference(self, actionA, actionB):
