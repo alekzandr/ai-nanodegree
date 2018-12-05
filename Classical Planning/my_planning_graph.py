@@ -40,12 +40,12 @@ class ActionLayer(BaseActionLayer):
         layers.ActionNode
         """
         # TODO: implement this function
-        raiseinterference_A_and_B = any([~literal in actionA.preconditions for literal in actionB.effects])
+        interference_A_and_B = any([~literal in actionA.preconditions for literal in actionB.effects])
         interference_B_and_A = any([~literal in actionB.preconditions for literal in actionA.effects])
         if interference_A_and_B==True or interference_B_and_A==True:
             return True
         else:
-            return False NotImplementedError
+            return False
 
     def _competing_needs(self, actionA, actionB):
         """ Return True if any preconditions of the two actions are pairwise mutex in the parent layer
