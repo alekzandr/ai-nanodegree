@@ -198,8 +198,6 @@ class PlanningGraph:
                 if goal in layer:
                     costs.append(index)
                     break
-        print(costs)
-        print(max(costs))
         return max(costs)
 
 
@@ -226,7 +224,21 @@ class PlanningGraph:
         WARNING: you should expect long runtimes using this heuristic on complex problems
         """
         # TODO: implement setlevel heuristic
-        raise NotImplementedError
+        self.fill()
+        for index, layer in enumerate(self.literal_layers):
+            all_goals_met = True
+            for goal in self.goal:
+                if goal not in layer:
+                    all_goals_met = False
+            if not all_goals_met:
+                continue
+            
+            goals_are_mutex = False
+            for goal_a, goal_b in combinations(self.goal, 2):
+                if layer.is_mutex(goal_a, goal_b):
+                    goals_are_mutex = True
+            if not goals_are_mutex:
+                return index
 
     ##############################################################################
     #                     DO NOT MODIFY CODE BELOW THIS LINE                     #
