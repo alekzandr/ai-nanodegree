@@ -60,7 +60,8 @@ class ActionLayer(BaseActionLayer):
         layers.BaseLayer.parent_layer
         """
         # TODO: implement this function
-        raise NotImplementedError
+        competing_needs_A_and_B = any(self.parent_layer.is_mutex(precon_A, precon_B) for precon_A in actionA.preconditions for precon_B in actionB.preconditions)
+        return competing_needs_A_and_B
 
 
 class LiteralLayer(BaseLiteralLayer):
