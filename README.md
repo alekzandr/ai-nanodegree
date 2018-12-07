@@ -31,7 +31,7 @@ logistics, and operations research. In this project I demonstrate some basic alg
 satisfaction to solve general problems
 
 
-<h3>Forward Planning Agent</h3>
+<a href="https://github.com/alekzandr/ai-nanodegree/tree/master/Classical%20Planning"><h3>Forward Planning Agent</h3></a>
 Intelligent agents are expected to act in complex domains where their goals and objectives may not be
 immediately achievable. They must reason about their goals and make rational choices of actions to achieve
 them. In this project I build a system using symbolic logic to represent general problem domains and
