@@ -1,0 +1,25 @@
+plan_length = [14, 24132, 14, 18, 17, 17, 23, 14, 15, 14, ]
+nodes_explored = [944130, 228849, 1066413, 280, 165, 580, 1164, 328509, 12210, 599376, ]
+actions = [104, 104, 104, 104, 104, 104, 104, 104, 104, 104, ]
+graph_expansions = [99736, 25174, 113339, 29, 17, 56, 107, 34330, 1208, 62077, ]
+compute_time = [8.143861734002712, 1730.8830940599946, 14.118177364995063,
+				0.06732425699738087, 7.8878790349990595, 14.306672658996831,
+				99.65181594299793, 5.877386942003795, 345.65702433299884,
+				9562.792888985, ]
+index = ["acp_4_bfs",
+    "acp_4_dfs",
+    "acp_4_ucs",
+    "acp_4_greedy_best_first_search h_unmet_goals",
+    "acp_4_greedy_best_first_search h_levelsum",
+    "acp_4_greedy_best_first_search h_maxlevel",
+    "acp_4_greedy_best_first_search h_setlevel",
+    "acp_4_astar_search h_unmet_goals",
+    "acp_4_astar_search h_levelsum",
+    "acp_4_astar_search h_maxlevel",
+    "acp_4_astar_search h_setlevel",]
+
+air_cargo_4 = pd.DataFrame({"plan_length" : plan_length,
+                            "nodes_explored" : nodes_explored,
+                            "actions" : actions,
+                            "graph_expansions" : graph_expansions,
+                            "compute_time" : compute_time}, index=index)
