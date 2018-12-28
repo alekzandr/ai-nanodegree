@@ -1,5 +1,6 @@
 
 from sample_players import DataPlayer
+from mcts import mcts
 
 
 class CustomPlayer(DataPlayer):
@@ -43,4 +44,6 @@ class CustomPlayer(DataPlayer):
         #          call self.queue.put(ACTION) at least once before time expires
         #          (the timer is automatically managed for you)
         import random
-        self.queue.put(random.choice(state.actions()))
+        search_tree = mcts(timeLimit=.15)
+        best_action = search_tree.search(state)
+        self.queue.put(best_action)
