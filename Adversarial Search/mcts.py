@@ -4,19 +4,21 @@ import random
 
 
 def randomPolicy(state):
-    while not state.isTerminal():
+    score = state.utility(0)
+    while not state.terminal_test():
         try:
-            action = random.choice(state.getPossibleActions())
+            action = random.choice(state.actions())
         except IndexError:
             raise Exception("Non-terminal state has no possible actions: " + str(state))
-        state = state.takeAction(action)
-    return state.getReward()
+        score = len(state.liberties(action))
+        state = state.result(action)  
+    return score
 
 
 class treeNode():
     def __init__(self, state, parent):
         self.state = state
-        self.isTerminal = state.isTerminal()
+        self.isTerminal = state.terminal_test()
         self.isFullyExpanded = self.isTerminal
         self.parent = parent
         self.numVisits = 0
@@ -72,10 +74,10 @@ class mcts():
         return node
 
     def expand(self, node):
-        actions = node.state.getPossibleActions()
+        actions = node.state.actions()
         for action in actions:
             if action not in node.children.keys():
-                newNode = treeNode(node.state.takeAction(action), node)
+                newNode = treeNode(node.state.result(action), node)
                 node.children[action] = newNode
                 if len(actions) == len(node.children):
                     node.isFullyExpanded = True
@@ -98,6 +100,7 @@ class mcts():
             if nodeValue >= bestValue:
                 bestValue = nodeValue
                 bestNodes.append(child)
+        #print(len(bestNodes))
         return random.choice(bestNodes)
 
     def getAction(self, root, bestChild):
