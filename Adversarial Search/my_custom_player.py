@@ -3,6 +3,7 @@ from sample_players import DataPlayer
 from mcts import mcts
 import time
 import random
+import math
 
 
 class CustomPlayer(DataPlayer):
@@ -23,15 +24,20 @@ class CustomPlayer(DataPlayer):
     **********************************************************************
     """
     
-    
+    def convert_index_to_xy(self, ind):
+        _WIDTH = 11
+        return (ind % (_WIDTH + 2), ind // (_WIDTH + 2))
 
-    def my_moves(self, gameState):
+    def manhattan_distaance(self, gameState):
         # TODO: Finish this function!
         # HINT: the global player_id variable is accessible inside
         #       this function scope
-        player_id = 0
-        loc = gameState.locs[player_id]
-        return len(gameState.liberties(loc))
+        agent = 0
+        adversary = 1
+        agent_loc = self.convert_index_to_xy(gameState.locs[agent])
+        adversary_loc = self.convert_index_to_xy(gameState.locs[adversary])
+        #print("Agent Location: {}".format(agent_loc))
+        return math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
 
 
     def minimax_decision(self, gameState, depth):
@@ -64,7 +70,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.my_moves(gameState)
+            return self.manhattan_distaance(gameState)
         
         v = float("inf")
         for a in gameState.actions():
@@ -83,7 +89,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.my_moves(gameState)
+            return self.manhattan_distaance(gameState)
         
         v = float("-inf")
         for a in gameState.actions():
