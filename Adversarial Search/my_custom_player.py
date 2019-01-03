@@ -28,7 +28,7 @@ class CustomPlayer(DataPlayer):
         _WIDTH = 11
         return (ind % (_WIDTH + 2), ind // (_WIDTH + 2))
 
-    def manhattan_distaance(self, gameState):
+    def manhattan_distance(self, gameState):
         # TODO: Finish this function!
         # HINT: the global player_id variable is accessible inside
         #       this function scope
@@ -41,7 +41,7 @@ class CustomPlayer(DataPlayer):
         if agent_loc != None and adversary_loc != None:
             agent_loc = self.convert_index_to_xy(agent_loc)
             adversary_loc = self.convert_index_to_xy(adversary_loc)
-            distance = math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
+            distance = -math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
         return distance
 
     def count_moves(self, gameState, player_id):
@@ -84,7 +84,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.baseline_heuristic(gameState)
+            return self.manhattan_distance(gameState)
         
         v = float("inf")
         for a in gameState.actions():
@@ -103,7 +103,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.baseline_heuristic(gameState)
+            return self.manhattan_distance(gameState)
         
         v = float("-inf")
         for a in gameState.actions():
@@ -136,7 +136,7 @@ class CustomPlayer(DataPlayer):
         #          (the timer is automatically managed for you)
         #start_time = time.clock()
         #while ((start_time - time.clock()) * 1000) < 10:
-        best_action = self.minimax_decision(state,1)
+        best_action = self.minimax_decision(state,4)
         self.queue.put(best_action)
         #else:
         #  self.queue.put(random.choice(state.actions))
