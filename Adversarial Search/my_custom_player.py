@@ -44,18 +44,15 @@ class CustomPlayer(DataPlayer):
             distance = math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
         return distance
 
-    def baseline_heuristic(self, gameState):
-      """
-          Returns the number of the plyer's moves - number of opponent's moves.
-      """
-
-        def count_moves(gameState, player_id):
+    def count_moves(self, gameState, player_id):
           loc = gameState.locs[player_id]
           return len(gameState.liberties(loc))
 
-        return count_moves(gameState, 0) - count_moves(gameState, 1)
-
-
+    def baseline_heuristic(self, gameState):
+        """
+          Returns the number of the plyer's moves - number of opponent's moves.
+        """
+        return self.count_moves(gameState, 0) - self.count_moves(gameState, 1)
 
     def minimax_decision(self, gameState, depth):
         """ Return the move along a branch of the game tree that
