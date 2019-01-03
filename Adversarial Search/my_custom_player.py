@@ -34,10 +34,27 @@ class CustomPlayer(DataPlayer):
         #       this function scope
         agent = 0
         adversary = 1
-        agent_loc = self.convert_index_to_xy(gameState.locs[agent])
-        adversary_loc = self.convert_index_to_xy(gameState.locs[adversary])
+        agent_loc = gameState.locs[agent]
+        adversary_loc = gameState.locs[adversary]
+        distance = 0
         #print("Agent Location: {}".format(agent_loc))
-        return math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
+        if agent_loc != None and adversary_loc != None:
+            agent_loc = self.convert_index_to_xy(agent_loc)
+            adversary_loc = self.convert_index_to_xy(adversary_loc)
+            distance = math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
+        return distance
+
+    def baseline_heuristic(self, gameState):
+      """
+          Returns the number of the plyer's moves - number of opponent's moves.
+      """
+
+        def count_moves(gameState, player_id):
+          loc = gameState.locs[player_id]
+          return len(gameState.liberties(loc))
+
+        return count_moves(gameState, 0) - count_moves(gameState, 1)
+
 
 
     def minimax_decision(self, gameState, depth):
@@ -70,7 +87,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.manhattan_distaance(gameState)
+            return self.baseline_heuristic(gameState)
         
         v = float("inf")
         for a in gameState.actions():
@@ -89,7 +106,7 @@ class CustomPlayer(DataPlayer):
         
         # New conditional depth limit cutoff
         if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.manhattan_distaance(gameState)
+            return self.baseline_heuristic(gameState)
         
         v = float("-inf")
         for a in gameState.actions():
