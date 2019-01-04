@@ -41,7 +41,7 @@ class CustomPlayer(DataPlayer):
         if agent_loc != None and adversary_loc != None:
             agent_loc = self.convert_index_to_xy(agent_loc)
             adversary_loc = self.convert_index_to_xy(adversary_loc)
-            distance = -math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
+            distance = math.sqrt((agent_loc[0]-adversary_loc[0])**2 + (agent_loc[1]-adversary_loc[1])**2)
         return distance
 
     def count_moves(self, gameState, player_id):
@@ -53,6 +53,13 @@ class CustomPlayer(DataPlayer):
           Returns the number of the plyer's moves - number of opponent's moves.
         """
         return self.count_moves(gameState, 0) - self.count_moves(gameState, 1)
+
+    def aggressive_greedy_heuristic(self, gameState, weight_1=1.5, weight_2=3, bias=0 ):
+        weight_1 = weight_1
+        weight_2 = weight_2
+        bias = bias
+        return weight_1 * -(self.manhattan_distance(gameState)) + weight_2 * self.baseline_heuristic(gameState) + bias
+
 
     def minimax(self, state, depth, heuristic):
 
@@ -99,7 +106,7 @@ class CustomPlayer(DataPlayer):
         #          (the timer is automatically managed for you)
         #start_time = time.clock()
         #while ((start_time - time.clock()) * 1000) < 10:
-        best_action = self.minimax(state,2, self.manhattan_distance)
+        best_action = self.minimax(state,2, self.baseline_heuristic)
         self.queue.put(best_action)
         #else:
         #  self.queue.put(random.choice(state.actions))
