@@ -54,62 +54,25 @@ class CustomPlayer(DataPlayer):
         """
         return self.count_moves(gameState, 0) - self.count_moves(gameState, 1)
 
-    def minimax_decision(self, gameState, depth):
-        """ Return the move along a branch of the game tree that
-        has the best possible value.  A move is a pair of coordinates
-        in (column, row) order corresponding to a legal move for
-        the searching player.
-        
-        You can ignore the special case of calling this function
-        from a terminal state.
-        """
-        best_score = float("-inf")
-        best_move = None
-        for a in gameState.actions():
-            # call has been updated with a depth limit
-            v = self.min_value(gameState.result(a), depth - 1)
-            if v > best_score:
-                best_score = v
-                best_move = a
-        return best_move
+    def minimax(self, state, depth, heuristic):
 
+        def min_value(state, depth):
+            if state.terminal_test(): return state.utility(self.player_id)
+            if depth <= 0: return heuristic(state)
+            value = float("inf")
+            for action in state.actions():
+                value = min(value, max_value(state.result(action), depth - 1))
+            return value
 
-    def min_value(self, gameState, depth):
-        """ Return the value for a win (+1) if the game is over,
-        otherwise return the minimum value over all legal child
-        nodes.
-        """
-        if gameState.terminal_test():
-            return gameState.utility(0)
-        
-        # New conditional depth limit cutoff
-        if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.manhattan_distance(gameState)
-        
-        v = float("inf")
-        for a in gameState.actions():
-            # the depth should be decremented by 1 on each call
-            v = min(v, self.max_value(gameState.result(a), depth - 1))
-        return v
+        def max_value(state, depth):
+            if state.terminal_test(): return state.utility(self.player_id)
+            if depth <= 0: return heuristic(state)
+            value = float("-inf")
+            for action in state.actions():
+                value = max(value, min_value(state.result(action), depth - 1))
+            return value
 
-
-    def max_value(self, gameState, depth):
-        """ Return the value for a loss (-1) if the game is over,
-        otherwise return the maximum value over all legal child
-        nodes.
-        """
-        if gameState.terminal_test():
-            return gameState.utility(0)
-        
-        # New conditional depth limit cutoff
-        if depth <= 0:  # "==" could be used, but "<=" is safer 
-            return self.manhattan_distance(gameState)
-        
-        v = float("-inf")
-        for a in gameState.actions():
-            # the depth should be decremented by 1 on each call
-            v = max(v, self.min_value(gameState.result(a), depth - 1))
-        return v
+        return max(state.actions(), key=lambda x: min_value(state.result(x), depth - 1))
 
     def get_action(self, state):
         """ Employ an adversarial search technique to choose an action
@@ -136,7 +99,7 @@ class CustomPlayer(DataPlayer):
         #          (the timer is automatically managed for you)
         #start_time = time.clock()
         #while ((start_time - time.clock()) * 1000) < 10:
-        best_action = self.minimax_decision(state,4)
+        best_action = self.minimax(state,2, self.manhattan_distance)
         self.queue.put(best_action)
         #else:
         #  self.queue.put(random.choice(state.actions))
