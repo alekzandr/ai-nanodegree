@@ -1,6 +1,5 @@
 
 from sample_players import DataPlayer
-from mcts import mcts
 import time
 import random
 import math
