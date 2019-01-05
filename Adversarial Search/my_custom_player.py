@@ -54,7 +54,7 @@ class CustomPlayer(DataPlayer):
         """
         return self.count_moves(gameState, 0) - self.count_moves(gameState, 1)
 
-    def aggressive_greedy_heuristic(self, gameState, weight_1=1.5, weight_2=3, bias=0 ):
+    def aggressive_greedy_heuristic(self, gameState, weight_1=1.5, weight_2=1, bias=0 ):
         weight_1 = weight_1
         weight_2 = weight_2
         bias = bias
@@ -106,7 +106,7 @@ class CustomPlayer(DataPlayer):
         #          (the timer is automatically managed for you)
         #start_time = time.clock()
         #while ((start_time - time.clock()) * 1000) < 10:
-        best_action = self.minimax(state,2, self.baseline_heuristic)
+        best_action = self.minimax(state, 4, self.aggressive_greedy_heuristic)
         self.queue.put(best_action)
         #else:
         #  self.queue.put(random.choice(state.actions))
