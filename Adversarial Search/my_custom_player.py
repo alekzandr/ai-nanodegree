@@ -104,9 +104,8 @@ class CustomPlayer(DataPlayer):
         # EXAMPLE: choose a random move without any search--this function MUST
         #          call self.queue.put(ACTION) at least once before time expires
         #          (the timer is automatically managed for you)
-        #start_time = time.clock()
-        #while ((start_time - time.clock()) * 1000) < 10:
-        best_action = self.minimax(state, 4, self.aggressive_greedy_heuristic)
-        self.queue.put(best_action)
-        #else:
-        #  self.queue.put(random.choice(state.actions))
+        depth = 10
+        for i in range(depth):
+          best_action = self.minimax(state, i + 1, self.aggressive_greedy_heuristic)
+          self.queue.put(best_action)
+
